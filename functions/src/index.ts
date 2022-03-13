@@ -112,13 +112,10 @@ export const sendNotificationOnCreateTransaction = functions.firestore
 
         const transactionCreator = (await admin.firestore()
             .collection("users")
-            .doc(createdBy)
-            .collection("accounts")
             .doc(userToBeNotified.id)
+            .collection("accounts")
+            .doc(createdBy)
             .get()).data();
-        // @TODO: should we fetch the transactionCreator
-        //  from the receiving user's accounts?
-        // That way the name will be according to the receiving user
         let notification = {};
 
         if (typeOfTransaction === "" && transaction.note !== "") {
